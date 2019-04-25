@@ -35,7 +35,7 @@ public class Main {
         }*/
         for(int quen=0; quen<N; quen++){
             while (colls()!=0) {
-                q[quen]=;
+                q[quen]=rp(q[quen]);
                 for(int i=0; i<N;i++){
                     T[i][q[i]]=1;
                 }
@@ -57,6 +57,14 @@ public class Main {
             }
         }
         out();
+    }
+    private static int rp(int x){
+        Random random = new Random();
+        int n =random.nextInt(N + 1);
+        while (n==x){
+            n =random.nextInt(N + 1);
+        }
+        return n;
     }
     private static void swap(int i1, int i2){
         T[i1][q[i1]]=0;
