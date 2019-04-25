@@ -46,13 +46,35 @@ public class Main {
                     s=0;
                     for (int i=0;i<N;i++) {
                         for (int j = i + 1; j < N; j++) {
-                            if()
+                            if(is_attacked(i,q[i]) || is_attacked(j,q[j])){
+                                if(swapreduces(i,j)){
+                                    s++;
+                                }
+                            }
                         }
                     }
                 }while (s!=0);
             }
         }
         out();
+    }
+    private static void swap(int i1, int i2){
+        T[i1][q[i1]]=0;
+        T[i2][q[i2]]=0;
+        int x = q[i1];
+        q[i1]=q[i2];
+        q[i2]=x;
+        T[i1][q[i1]]=1;
+        T[i2][q[i2]]=1;
+    }
+    private static boolean swapreduces(int i1,int i2){
+        int colls=colls();
+        swap(i1,i2);
+        calcms();
+        if(colls<colls()){
+            swap(i1,i2);
+            calcms();
+        }
     }
     private static int colls(){
         int o = 0;
@@ -65,7 +87,7 @@ public class Main {
             }
         }
     }
-    static boolean  is_attacked(int i,int j){
+    private static boolean  is_attacked(int i, int j){
         if(i!=0 && j!=0){
             return T[i-1][j-1]==1;
         }
