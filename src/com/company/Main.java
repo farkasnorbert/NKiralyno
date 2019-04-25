@@ -1,6 +1,5 @@
 package com.company;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
@@ -21,24 +20,16 @@ public class Main {
         md = new int[N*2];
         sd = new int[N*2];
         for(int i=0; i<N;i++){
-            q[i]=random.nextInt(N + 1);
+            q[i]=random.nextInt(N);
             T[i][q[i]]=1;
         }
         out();
         calcms();
-        /*for(int i=0;i<N*2-1;i++){
-            System.out.print(md[i]+" ");
-        }
-        System.out.println();
-        for(int i=0;i<N*2-1;i++){
-            System.out.print(sd[i]+" ");
-        }*/
         for(int quen=0; quen<N; quen++){
             while (colls()!=0) {
+                T[quen][q[quen]]=0;
                 q[quen]=rp(q[quen]);
-                for(int i=0; i<N;i++){
-                    T[i][q[i]]=1;
-                }
+                T[quen][q[quen]]=1;
                 out();
                 calcms();
                 int s;
@@ -60,9 +51,9 @@ public class Main {
     }
     private static int rp(int x){
         Random random = new Random();
-        int n =random.nextInt(N + 1);
+        int n =random.nextInt(N);
         while (n==x){
-            n =random.nextInt(N + 1);
+            n =random.nextInt(N);
         }
         return n;
     }
@@ -82,7 +73,9 @@ public class Main {
         if(colls<colls()){
             swap(i1,i2);
             calcms();
+            return false;
         }
+        return true;
     }
     private static int colls(){
         int o = 0;
@@ -94,6 +87,7 @@ public class Main {
                 o+=md[i]-1;
             }
         }
+        return o;
     }
     private static boolean  is_attacked(int i, int j){
         if(i!=0 && j!=0){
@@ -117,6 +111,7 @@ public class Main {
             }
             System.out.println();
         }
+        System.out.println();
     }
     private static void calcms(){
         Arrays.fill(md,0);
@@ -136,7 +131,6 @@ public class Main {
             }
             while (im<=N-1 && jm<=N-1){
                 if(T[im][jm]==1){
-                    System.out.println(im+" "+jm+" "+(N*2-1-k-1));
                     md[N*2-1-k-1]++;
                 }
                 im++;
